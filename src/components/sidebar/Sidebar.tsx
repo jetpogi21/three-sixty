@@ -5,6 +5,7 @@ import { links } from "@/lib/header-links";
 import Link from "next/link";
 import React from "react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const Sidebar: React.FC = () => {
   const pathname = usePathname();
@@ -15,7 +16,12 @@ const Sidebar: React.FC = () => {
           className="text-2xl font-bold leading-none"
           href="/"
         >
-          Pradascus
+          <Image
+            src="/logo.png"
+            alt="logo"
+            width={200}
+            height={100}
+          />
         </Link>
       </div>
       <div className="flex flex-col w-full text-sm">

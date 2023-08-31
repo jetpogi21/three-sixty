@@ -15,7 +15,7 @@ const inter = Roboto({
 });
 
 export const metadata = {
-  title: "threesixty",
+  title: "Threesixty App",
 };
 
 export default function RootLayout({
