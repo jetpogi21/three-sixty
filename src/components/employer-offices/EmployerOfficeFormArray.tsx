@@ -251,10 +251,10 @@ const EmployerOfficeFormArray: React.FC<EmployerOfficeFormArrayProps> = ({ formi
 
   return (
     <Form
+      className="flex flex-col flex-1 gap-4"
       autoComplete="off"
       noValidate
     >
-      <div className="flex flex-col gap-4">
         <div className="flex items-center gap-4">
           <div className="text-sm">
             {employerOfficeTable.getFilteredSelectedRowModel().rows.length} of{" "}
@@ -274,11 +274,12 @@ const EmployerOfficeFormArray: React.FC<EmployerOfficeFormArrayProps> = ({ formi
           )}
           <Button
             className="ml-auto"
+            variant={"secondary"}
             type="button"
             size="sm"
             onClick={focusOnRef}
           >
-            <ChevronLast className="w-4 h-4 text-green-800" /> Go to last row
+            <ChevronLast className="w-4 h-4 text-foreground" /> Go to last row
           </Button>
         </div>
 
@@ -345,7 +346,7 @@ const EmployerOfficeFormArray: React.FC<EmployerOfficeFormArrayProps> = ({ formi
             </TableBody>
           </Table>
         </div>
-        <div className="flex items-center justify-between flex-1 text-sm select-none text-muted-foreground">
+        <div className="flex items-center justify-between mt-auto text-sm select-none text-muted-foreground">
           {!isLoading && (
             <div className="flex items-center justify-between w-full gap-4">
               <p className="hidden md:block">{pageStatus}</p>
@@ -353,15 +354,17 @@ const EmployerOfficeFormArray: React.FC<EmployerOfficeFormArrayProps> = ({ formi
                 <Button
                   type="button"
                   size="sm"
+                  variant={"secondary"}
                   onClick={addRow}
                   isLoading={isUpdating}
                 >
-                  <Plus className="w-4 h-4 text-green-800" /> Add Row
+                  <Plus className="w-4 h-4 mr-1 text-foreground" />Add Row
                 </Button>
                 <Button
                   type="submit"
                   size={"sm"}
                   isLoading={isUpdating}
+                  variant={"secondary"}
                 >
                   Save Changes
                 </Button>
@@ -370,6 +373,7 @@ const EmployerOfficeFormArray: React.FC<EmployerOfficeFormArrayProps> = ({ formi
                   size="sm"
                   disabled={!hasPreviousPage}
                   onClick={() => goToPreviousPage()}
+                  variant={"secondary"}
                 >
                   Previous
                 </Button>
@@ -379,6 +383,7 @@ const EmployerOfficeFormArray: React.FC<EmployerOfficeFormArrayProps> = ({ formi
                   disabled={!hasNextPage}
                   onClick={() => goToNextPage()}
                   isLoading={isFetching}
+                  variant={"secondary"}
                 >
                   Next
                 </Button>
@@ -386,7 +391,6 @@ const EmployerOfficeFormArray: React.FC<EmployerOfficeFormArrayProps> = ({ formi
             </div>
           )}
         </div>
-      </div>
       <EmployerOfficeMultiCreateDeleteDialog />
     </Form>
   );
