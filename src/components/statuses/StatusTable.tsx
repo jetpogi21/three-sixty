@@ -111,6 +111,7 @@ q}, DEFAULT_FILTERS, {
 
   //Tanstacks
   const { refetch } = useInfiniteQuery(["status"], getStatus, {
+    keepPreviousData: true,
     getNextPageParam: (lastPage) => lastPage.cursor ?? undefined,
     onSuccess: (data) => {
       const dataPageLength = data.pages.length;
