@@ -7,7 +7,7 @@ import axiosClient from "@/utils/api";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
-const getDivisions = async () => {
+const getDivisions = async (useName: boolean = false) => {
   const { data } = await axiosClient.get<GetDivisionsResponse>(`divisions`, {
     params: {
       fetchCount: "false",
@@ -16,13 +16,14 @@ const getDivisions = async () => {
   });
 
   return data.rows.map((item) => ({
-    id: item.id,
+    id: !useName ? item.id : item.name,
     name: item.name,
   }));
 };
 
 interface UseListProps {
   placeholderData?: BasicModel[];
+  useName?: boolean;
 }
 
 const useDivisionList = (prop?: UseListProps) => {
@@ -31,7 +32,7 @@ const useDivisionList = (prop?: UseListProps) => {
 
   const _ = useQuery({
     queryKey: ["division-list"],
-    queryFn: getDivisions,
+    queryFn: () => getDivisions(prop?.useName),
     enabled: mounted,
     placeholderData: prop?.placeholderData,
   });

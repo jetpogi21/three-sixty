@@ -7,7 +7,7 @@ import axiosClient from "@/utils/api";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
-const getStages = async () => {
+const getStages = async (useName: boolean = false) => {
   const { data } = await axiosClient.get<GetStagesResponse>(`stages`, {
     params: {
       fetchCount: "false",
@@ -16,13 +16,14 @@ const getStages = async () => {
   });
 
   return data.rows.map((item) => ({
-    id: item.id,
+    id: !useName ? item.id : item.name,
     name: item.name,
   }));
 };
 
 interface UseListProps {
   placeholderData?: BasicModel[];
+  useName?: boolean;
 }
 
 const useStageList = (prop?: UseListProps) => {
@@ -31,7 +32,7 @@ const useStageList = (prop?: UseListProps) => {
 
   const _ = useQuery({
     queryKey: ["stage-list"],
-    queryFn: getStages,
+    queryFn: () => getStages(prop?.useName),
     enabled: mounted,
     placeholderData: prop?.placeholderData,
   });

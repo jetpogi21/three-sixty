@@ -7,7 +7,7 @@ import axiosClient from "@/utils/api";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
-const getPriorities = async () => {
+const getPriorities = async (useName: boolean = false) => {
   const { data } = await axiosClient.get<GetPrioritiesResponse>(`priorities`, {
     params: {
       fetchCount: "false",
@@ -16,13 +16,14 @@ const getPriorities = async () => {
   });
 
   return data.rows.map((item) => ({
-    id: item.id,
+    id: !useName ? item.id : item.name,
     name: item.name,
   }));
 };
 
 interface UseListProps {
   placeholderData?: BasicModel[];
+  useName?: boolean;
 }
 
 const usePriorityList = (prop?: UseListProps) => {
@@ -31,7 +32,7 @@ const usePriorityList = (prop?: UseListProps) => {
 
   const _ = useQuery({
     queryKey: ["priority-list"],
-    queryFn: getPriorities,
+    queryFn: () => getPriorities(prop?.useName),
     enabled: mounted,
     placeholderData: prop?.placeholderData,
   });

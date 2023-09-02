@@ -7,7 +7,7 @@ import axiosClient from "@/utils/api";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
-const getProviderSources = async () => {
+const getProviderSources = async (useName: boolean = false) => {
   const { data } = await axiosClient.get<GetProviderSourcesResponse>(`provider-sources`, {
     params: {
       fetchCount: "false",
@@ -16,13 +16,14 @@ const getProviderSources = async () => {
   });
 
   return data.rows.map((item) => ({
-    id: item.id,
+    id: !useName ? item.id : item.name,
     name: item.name,
   }));
 };
 
 interface UseListProps {
   placeholderData?: BasicModel[];
+  useName?: boolean;
 }
 
 const useProviderSourceList = (prop?: UseListProps) => {
@@ -31,7 +32,7 @@ const useProviderSourceList = (prop?: UseListProps) => {
 
   const _ = useQuery({
     queryKey: ["providerSource-list"],
-    queryFn: getProviderSources,
+    queryFn: () => getProviderSources(prop?.useName),
     enabled: mounted,
     placeholderData: prop?.placeholderData,
   });

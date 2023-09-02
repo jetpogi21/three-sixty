@@ -7,7 +7,7 @@ import axiosClient from "@/utils/api";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
-const getGroupSites = async () => {
+const getGroupSites = async (useName: boolean = false) => {
   const { data } = await axiosClient.get<GetGroupSitesResponse>(`group-sites`, {
     params: {
       fetchCount: "false",
@@ -16,13 +16,14 @@ const getGroupSites = async () => {
   });
 
   return data.rows.map((item) => ({
-    id: item.id,
+    id: !useName ? item.id : item.name,
     name: item.name,
   }));
 };
 
 interface UseListProps {
   placeholderData?: BasicModel[];
+  useName?: boolean;
 }
 
 const useGroupSiteList = (prop?: UseListProps) => {
@@ -31,7 +32,7 @@ const useGroupSiteList = (prop?: UseListProps) => {
 
   const _ = useQuery({
     queryKey: ["groupSite-list"],
-    queryFn: getGroupSites,
+    queryFn: () => getGroupSites(prop?.useName),
     enabled: mounted,
     placeholderData: prop?.placeholderData,
   });

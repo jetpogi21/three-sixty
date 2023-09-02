@@ -7,7 +7,7 @@ import axiosClient from "@/utils/api";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
-const getEmployerOffices = async () => {
+const getEmployerOffices = async (useName: boolean = false) => {
   const { data } = await axiosClient.get<GetEmployerOfficesResponse>(`employer-offices`, {
     params: {
       fetchCount: "false",
@@ -16,13 +16,14 @@ const getEmployerOffices = async () => {
   });
 
   return data.rows.map((item) => ({
-    id: item.id,
+    id: !useName ? item.id : item.name,
     name: item.name,
   }));
 };
 
 interface UseListProps {
   placeholderData?: BasicModel[];
+  useName?: boolean;
 }
 
 const useEmployerOfficeList = (prop?: UseListProps) => {
@@ -31,7 +32,7 @@ const useEmployerOfficeList = (prop?: UseListProps) => {
 
   const _ = useQuery({
     queryKey: ["employerOffice-list"],
-    queryFn: getEmployerOffices,
+    queryFn: () => getEmployerOffices(prop?.useName),
     enabled: mounted,
     placeholderData: prop?.placeholderData,
   });
