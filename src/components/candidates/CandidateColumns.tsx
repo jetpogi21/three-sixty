@@ -147,10 +147,10 @@ enableSorting: true
   ),
   cell: (cell) => {
  return cell.table.options.meta?.editable ? (
-        <EditableTableCell cell={cell} />
+        <EditableTableCell cell={cell} options={cell.table.options.meta?.options?.stateList || []}/>
       ) : (
         //@ts-ignore
-        cell.getValue()
+        cell.row.original.State.name
       )
 },
   meta: {
@@ -367,10 +367,10 @@ enableSorting: true
   ),
   cell: (cell) => {
  return cell.table.options.meta?.editable ? (
-        <EditableTableCell cell={cell} />
+        <EditableTableCell cell={cell} options={cell.table.options.meta?.options?.stateList || []}/>
       ) : (
         //@ts-ignore
-        cell.getValue()
+        cell.row.original.State.name
       )
 },
   meta: {
@@ -543,10 +543,10 @@ enableSorting: true
   ),
   cell: (cell) => {
  return cell.table.options.meta?.editable ? (
-        <EditableTableCell cell={cell} />
+        <EditableTableCell cell={cell} options={cell.table.options.meta?.options?.stateList || []}/>
       ) : (
         //@ts-ignore
-        cell.getValue()
+        cell.row.original.State.name
       )
 },
   meta: {
