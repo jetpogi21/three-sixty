@@ -24,6 +24,7 @@ export interface FormikInputProps extends InputProps {
   allowNegative?: boolean;
   disabled?: boolean;
   setHasUpdate?: () => void;
+  currency?: string;
 }
 
 export const FormikInput = forwardRef<HTMLInputElement, FormikInputProps>(
@@ -201,18 +202,26 @@ export const FormikInput = forwardRef<HTMLInputElement, FormikInputProps>(
     return (
       <div className={cn("flex flex-col w-full gap-1.5", containerClassNames)}>
         {!!label && <Label htmlFor={props.name}>{label}</Label>}
-        <Input
-          className={cn({ "text-right pr-2": isNumeric })}
-          type={inputType}
-          ref={ref || inputRef}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          onKeyDown={handleKeyDown}
-          value={internalVal}
-          disabled={props.disabled}
-          id={props.name}
-          {...props}
-        />
+        <div className="relative flex items-center">
+          {props.currency && (
+            <div className="absolute left-4">{props.currency}</div>
+          )}
+          <Input
+            className={cn({
+              "text-right pr-2": isNumeric,
+              "pl-4": props.currency,
+            })}
+            type={inputType}
+            ref={ref || inputRef}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            onKeyDown={handleKeyDown}
+            value={internalVal}
+            disabled={props.disabled}
+            id={props.name}
+            {...props}
+          />
+        </div>
         {helperText && (
           <span className="mt-1 text-xs font-bold text-muted-foreground">
             {helperText}
