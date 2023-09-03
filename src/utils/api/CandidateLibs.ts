@@ -62,7 +62,6 @@ export const createCandidate = async (
       wageSubsidyAmount: candidate.wageSubsidyAmount!,
       benchmarkHours: candidate.benchmarkHours!,
       startDate: candidate.startDate!,
-      status: candidate.status ? parseInt(candidate.status as string) : null,
       stage: candidate.stage ? parseInt(candidate.stage as string) : null,
       outcomeReminder: candidate.outcomeReminder
         ? candidate.outcomeReminder!
@@ -147,7 +146,6 @@ export const updateCandidate = async (
       wageSubsidyAmount: candidate.wageSubsidyAmount!,
       benchmarkHours: candidate.benchmarkHours!,
       startDate: candidate.startDate!,
-      status: candidate.status ? parseInt(candidate.status as string) : null,
       stage: candidate.stage ? parseInt(candidate.stage as string) : null,
       outcomeReminder: candidate.outcomeReminder
         ? candidate.outcomeReminder!

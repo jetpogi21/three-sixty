@@ -99,11 +99,6 @@ const CandidateSchema = Yup.object().shape({
   ),
   benchmarkHours: Yup.string().required("Benchmark Hours is a required field."),
   startDate: Yup.string().required("Start Date is a required field."),
-  status: Yup.number()
-    .nullable()
-    .transform((value, originalValue) =>
-      originalValue && originalValue !== "" ? value : null
-    ),
   stage: Yup.number()
     .nullable()
     .transform((value, originalValue) =>
@@ -206,7 +201,6 @@ const CandidateArraySchema = Yup.object().shape({
           ? schema.required("Start Date is a required field.")
           : schema.notRequired()
       ),
-      status: Yup.number().nullable(),
       stage: Yup.number().nullable(),
       outcomeReminder: Yup.string().nullable(),
       payslipStatus: Yup.string().nullable(),

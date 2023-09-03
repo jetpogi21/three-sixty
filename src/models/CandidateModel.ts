@@ -41,7 +41,6 @@ export default interface Candidate
   wageSubsidyAmount: string;
   benchmarkHours: string;
   startDate: string;
-  status?: number | null;
   stage?: number | null;
   outcomeReminder?: string | null;
   payslipStatus?: string | null;
@@ -184,11 +183,6 @@ export const Candidate = sequelize.define<Candidate>(
     startDate: {
       type: DataTypes.DATEONLY,
       field: "start_date",
-    },
-    status: {
-      type: DataTypes.BIGINT,
-      allowNull: true,
-      field: "status",
     },
     stage: {
       type: DataTypes.BIGINT,

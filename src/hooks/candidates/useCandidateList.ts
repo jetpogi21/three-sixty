@@ -7,7 +7,7 @@ import axiosClient from "@/utils/api";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
-const getCandidates = async () => {
+const getCandidates = async (useName: boolean = false) => {
   const { data } = await axiosClient.get<GetCandidatesResponse>(`candidates`, {
     params: {
       fetchCount: "false",
@@ -16,13 +16,14 @@ const getCandidates = async () => {
   });
 
   return data.rows.map((item) => ({
-    id: item.id,
+    id: !useName ? item.id : item.id.toString(),
     name: item.id.toString(),
   }));
 };
 
 interface UseListProps {
   placeholderData?: BasicModel[];
+  useName?: boolean;
 }
 
 const useCandidateList = (prop?: UseListProps) => {
@@ -31,7 +32,7 @@ const useCandidateList = (prop?: UseListProps) => {
 
   const _ = useQuery({
     queryKey: ["candidate-list"],
-    queryFn: getCandidates,
+    queryFn: () => getCandidates(prop?.useName),
     enabled: mounted,
     placeholderData: prop?.placeholderData,
   });
