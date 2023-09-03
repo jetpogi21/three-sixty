@@ -6,9 +6,12 @@ import Link from "next/link";
 import React from "react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { useTheme } from "next-themes";
 
 const Sidebar: React.FC = () => {
   const pathname = usePathname();
+  const { theme, setTheme } = useTheme();
+  const darkMode = !theme || theme === "dark";
   return (
     <div className="min-w-[250px] py-4 pl-4 pr-2 flex flex-col items-center flex-grow-0">
       <div className="h-[100px] flex items-center">
@@ -17,6 +20,7 @@ const Sidebar: React.FC = () => {
           href="/"
         >
           <Image
+            className={cn(!darkMode && "invert")}
             src="/logo.png"
             alt="logo"
             width={200}
